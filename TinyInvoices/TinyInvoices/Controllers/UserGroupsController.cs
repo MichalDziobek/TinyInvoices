@@ -29,7 +29,13 @@ namespace TinyInvoices.Controllers
         // GET: UserGroups
         public async Task<IActionResult> Index()
         {
-            return View(await _context.UserGroups.ToListAsync());
+            var userId = _userManager.GetUserId(User);
+            var groups = await _context.UserGroups
+                .Where(x => x.UserToGroupMappings
+                        .Select(y => y.UserId)
+                        .Contains(userId))
+                .ToListAsync();
+            return View(groups);
         }
 
         // GET: UserGroups/Details/5

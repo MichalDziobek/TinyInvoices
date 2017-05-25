@@ -8,23 +8,34 @@ using Microsoft.EntityFrameworkCore;
 using TinyInvoices.Data;
 using TinyInvoices.Models.DatabaseModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace TinyInvoices.Controllers
 {
     [Authorize]
     public class BillsController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
 
-        public BillsController(ApplicationDbContext context)
+        public BillsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
-            _context = context;    
+            _context = context;
+            _userManager = userManager;
         }
 
         // GET: Bills
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Bills.Include(b => b.Charge).Include(b => b.UserToGroupMapping);
+            var userId = _userManager.GetUserId(User);
+            var applicationDbContext = _context.Bills
+                .Include(b => b.Charge)
+                    .ThenInclude(x => x.Invoice)
+                        .ThenInclude(x => x.UserGroup)
+                .Include(b => b.Charge)
+                    .ThenInclude(x => x.Cost)
+                .Include(b => b.UserToGroupMapping)
+                .Where(x => x.UserToGroupMapping.UserId == userId);
             return View(await applicationDbContext.ToListAsync());
         }
 

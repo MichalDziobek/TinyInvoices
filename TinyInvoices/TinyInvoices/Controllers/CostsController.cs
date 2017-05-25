@@ -22,29 +22,16 @@ namespace TinyInvoices.Controllers
         }
 
         // GET: Costs
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? userGroupId)
         {
-            var applicationDbContext = _context.Costs.Include(c => c.UserGroup);
+            if (userGroupId == null)
+            {
+                return NotFound();
+            }
+            var applicationDbContext = _context.Costs.Include(c => c.UserGroup)
+                                            .Where(x => x.IsActive 
+                                                     && x.UserGroupId == userGroupId);
             return View(await applicationDbContext.ToListAsync());
-        }
-
-        // GET: Costs/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var cost = await _context.Costs
-                .Include(c => c.UserGroup)
-                .SingleOrDefaultAsync(m => m.CostId == id);
-            if (cost == null)
-            {
-                return NotFound();
-            }
-
-            return View(cost);
         }
 
         // GET: Costs/Create
@@ -65,7 +52,7 @@ namespace TinyInvoices.Controllers
             {
                 _context.Add(cost);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return await Index(cost.UserGroupId);
             }
             ViewData["UserGroupId"] = new SelectList(_context.UserGroups, "UserGroupId", "UserGroupId", cost.UserGroupId);
             return View(cost);
