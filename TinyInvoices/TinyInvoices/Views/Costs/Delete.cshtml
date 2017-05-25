@@ -1,0 +1,65 @@
+@model TinyInvoices.Models.DatabaseModel.Cost
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Cost</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <input type="hidden" asp-for="CostId" />
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Value)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Value)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StartingDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StartingDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Interval)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Interval)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsRepeatable)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsRepeatable)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserGroup)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserGroup.UserGroupId)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>

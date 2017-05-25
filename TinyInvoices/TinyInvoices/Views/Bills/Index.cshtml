@@ -1,0 +1,47 @@
+@model IEnumerable<TinyInvoices.Models.DatabaseModel.Bill>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Value)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Charge)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserToGroupMapping)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Charge.ChargeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserToGroupMapping.UserToGroupMappingId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.BillId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.BillId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.BillId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
