@@ -13,6 +13,7 @@ using TinyInvoices.Data;
 using TinyInvoices.Models;
 using TinyInvoices.Services;
 using TinyInvoices.Models.DatabaseModel;
+using TinyInvoices.Controllers;
 
 namespace TinyInvoices
 {
@@ -53,6 +54,7 @@ namespace TinyInvoices
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<InvoicesCalculator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

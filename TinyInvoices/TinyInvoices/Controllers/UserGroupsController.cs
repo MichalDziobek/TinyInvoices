@@ -17,13 +17,16 @@ namespace TinyInvoices.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly InvoicesCalculator _invoicesCalculator;
 
 
         public UserGroupsController(ApplicationDbContext context,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            InvoicesCalculator invoicesCalculator)
         {
             _context = context;
             _userManager = userManager;
+            _invoicesCalculator = invoicesCalculator;
         }
 
         // GET: UserGroups
@@ -36,6 +39,16 @@ namespace TinyInvoices.Controllers
                         .Contains(userId))
                 .ToListAsync();
             return View(groups);
+        }
+
+        public async Task<IActionResult> GenerateInvoice(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return NotFound();
+            }
+            await _invoicesCalculator.CalculateInvoice(id.Value);
+            return RedirectToAction(nameof(UserGroupsController.Index));
         }
 
         // GET: UserGroups/Details/5
