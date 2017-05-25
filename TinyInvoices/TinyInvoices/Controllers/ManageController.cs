@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using TinyInvoices.Models;
 using TinyInvoices.Models.ManageViewModels;
 using TinyInvoices.Services;
+using TinyInvoices.Models.DatabaseModel;
 
 namespace TinyInvoices.Controllers
 {

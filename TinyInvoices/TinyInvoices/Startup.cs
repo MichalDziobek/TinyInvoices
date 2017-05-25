@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using TinyInvoices.Data;
 using TinyInvoices.Models;
 using TinyInvoices.Services;
+using TinyInvoices.Models.DatabaseModel;
 
 namespace TinyInvoices
 {
