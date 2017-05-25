@@ -50,6 +50,10 @@ namespace TinyInvoices.Data
                     .WithMany(x => x.Charges)
                     .HasForeignKey(x => x.InvoiceId)
                     .OnDelete(DeleteBehavior.Restrict);
+                b.HasOne(x => x.Cost)
+                    .WithMany(x => x.Charges)
+                    .HasForeignKey(x => x.CostId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             builder.Entity<Cost>(b =>

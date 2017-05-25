@@ -17,5 +17,6 @@ namespace TinyInvoices.Models.DatabaseModel
         public bool IsRepeatable { get; set; }
 
         public virtual UserGroup UserGroup { get; set; }
+        public virtual ICollection<Charge> Charges { get; set; }
     }
 }
