@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TinyInvoices.Data;
 using TinyInvoices.Models.DatabaseModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace TinyInvoices.Controllers
 {
@@ -15,10 +16,14 @@ namespace TinyInvoices.Controllers
     public class UserGroupsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public UserGroupsController(ApplicationDbContext context)
+
+        public UserGroupsController(ApplicationDbContext context,
+            UserManager<ApplicationUser> userManager)
         {
-            _context = context;    
+            _context = context;
+            _userManager = userManager;
         }
 
         // GET: UserGroups
@@ -60,7 +65,15 @@ namespace TinyInvoices.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(userGroup);
+                var user = await _userManager.GetUserAsync(User);
+                var mapping = new UserToGroupMapping
+                {
+                    User = user,
+                    IsAdmin = true,
+                    UserGroup = userGroup
+                };
+                await _context.UserToGroupMappings.AddAsync(mapping);
+                await _context.AddAsync(userGroup);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
