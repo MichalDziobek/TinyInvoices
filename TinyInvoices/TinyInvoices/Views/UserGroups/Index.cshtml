@@ -18,6 +18,12 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Description)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstAutomaticInvoiceGenerationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AutomaticInvoiceInterval)
+                </th>
             <th></th>
         </tr>
     </thead>
@@ -29,6 +35,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstAutomaticInvoiceGenerationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AutomaticInvoiceInterval)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.UserGroupId">Edit</a> |

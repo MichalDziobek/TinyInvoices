@@ -10,6 +10,8 @@ namespace TinyInvoices.Models.DatabaseModel
         public int UserGroupId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public DateTime FirstAutomaticInvoiceGenerationDate { get; set; }
+        public TimeSpan AutomaticInvoiceInterval { get; set; }
 
         public virtual ICollection<UserToGroupMapping> UserToGroupMappings { get; set; }
         public virtual ICollection<Cost> Costs { get; set; }

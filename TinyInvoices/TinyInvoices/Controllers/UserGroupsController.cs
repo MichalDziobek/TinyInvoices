@@ -56,7 +56,7 @@ namespace TinyInvoices.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserGroupId,Name,Description")] UserGroup userGroup)
+        public async Task<IActionResult> Create([Bind("UserGroupId,Name,Description,FirstAutomaticInvoiceGenerationDate,AutomaticInvoiceInterval")] UserGroup userGroup)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace TinyInvoices.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserGroupId,Name,Description")] UserGroup userGroup)
+        public async Task<IActionResult> Edit(int id, [Bind("UserGroupId,Name,Description,FirstAutomaticInvoiceGenerationDate,AutomaticInvoiceInterval")] UserGroup userGroup)
         {
             if (id != userGroup.UserGroupId)
             {
