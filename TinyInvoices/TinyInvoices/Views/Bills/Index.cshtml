@@ -6,22 +6,24 @@
 
 <h2>Index</h2>
 
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>*@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Value)
-                </th>
             <th>
-                @Html.DisplayNameFor(model => model.Charge)
+                @Html.DisplayNameFor(model => model.Value)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserToGroupMapping)
+                @Html.DisplayNameFor(m => m.Charge.Cost.Name)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(m => m.Charge.Invoice.UserGroup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Charge.Invoice.CalculationDate)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -31,16 +33,19 @@
                 @Html.DisplayFor(modelItem => item.Value)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Charge.ChargeId)
+                @Html.DisplayFor(modelItem => item.Charge.Cost.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserToGroupMapping.UserToGroupMappingId)
+                @Html.DisplayFor(modelItem => item.Charge.Invoice.UserGroup.Name)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Charge.Invoice.CalculationDate)
+            </td>
+            @*<td>
                 <a asp-action="Edit" asp-route-id="@item.BillId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.BillId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.BillId">Delete</a>
-            </td>
+            </td>*@
         </tr>
 }
     </tbody>
