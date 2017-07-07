@@ -45,8 +45,9 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.UserGroupId">Edit</a> |
                 <a asp-action="Index" asp-controller="Costs" asp-route-userGroupId="@item.UserGroupId">Costs</a> |
-                <a asp-action="Delete" asp-route-id="@item.UserGroupId">Delete</a>
-                <a asp-action="GenerateInvoice" asp-route-id="@item.UserGroupId">Generate Invoice</a>
+                <a asp-action="Delete" asp-route-id="@item.UserGroupId">Delete</a> |
+                <a asp-action="GenerateInvoice" asp-route-id="@item.UserGroupId">Generate Invoice</a> | 
+                <a asp-action="AddUser" asp-route-userGroupId="@item.UserGroupId">Add User</a>
             </td>
         </tr>
 }

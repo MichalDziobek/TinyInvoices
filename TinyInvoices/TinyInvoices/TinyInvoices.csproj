@@ -10,6 +10,7 @@
 
   <PropertyGroup>
     <UserSecretsId>aspnet-TinyInvoices-fac7361b-6641-498d-a304-f8bfa8346ffe</UserSecretsId>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="HangFire" Version="1.6.12" />

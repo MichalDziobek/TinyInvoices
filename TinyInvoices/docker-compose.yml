@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  tinyinvoices:
+    image: tinyinvoices
+    build:
+      context: ./TinyInvoices
+      dockerfile: Dockerfile

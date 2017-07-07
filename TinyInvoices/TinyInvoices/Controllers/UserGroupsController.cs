@@ -9,6 +9,7 @@ using TinyInvoices.Data;
 using TinyInvoices.Models.DatabaseModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using TinyInvoices.Models;
 
 namespace TinyInvoices.Controllers
 {
@@ -49,6 +50,31 @@ namespace TinyInvoices.Controllers
             }
             await _invoicesCalculator.CalculateInvoice(id.Value);
             return RedirectToAction(nameof(UserGroupsController.Index));
+        }
+
+        public IActionResult AddUser(int userGroupId)
+        {
+            ViewData["UserGroupId"] = new SelectList(new List<int> { userGroupId });
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddUser([Bind("Email, UserGroupId")] AddUserRequest addRequest)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _context.Users.SingleAsync(x => x.Email == addRequest.Email);
+                var mapping = new UserToGroupMapping
+                {
+                    User = user,
+                    IsAdmin = true,
+                    UserGroupId = addRequest.UserGroupId
+                };
+                await _context.UserToGroupMappings.AddAsync(mapping);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
+
         }
 
         // GET: UserGroups/Details/5

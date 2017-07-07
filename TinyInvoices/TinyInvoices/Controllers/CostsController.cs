@@ -28,6 +28,7 @@ namespace TinyInvoices.Controllers
             {
                 return NotFound();
             }
+            ViewData["UserGroupId"] = userGroupId;
             var applicationDbContext = _context.Costs.Include(c => c.UserGroup)
                                             .Where(x => x.IsActive 
                                                      && x.UserGroupId == userGroupId);
@@ -35,9 +36,9 @@ namespace TinyInvoices.Controllers
         }
 
         // GET: Costs/Create
-        public IActionResult Create()
+        public IActionResult Create(int userGroupId)
         {
-            ViewData["UserGroupId"] = new SelectList(_context.UserGroups, "UserGroupId", "UserGroupId");
+            ViewData["UserGroupId"] = new SelectList(new List<int> { userGroupId });
             return View();
         }
 
@@ -48,14 +49,14 @@ namespace TinyInvoices.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CostId,UserGroupId,Name,Value,StartingDate,Interval,IsActive,IsRepeatable")] Cost cost)
         {
+            cost.IsActive = true;
             if (ModelState.IsValid)
             {
                 _context.Add(cost);
                 await _context.SaveChangesAsync();
                 return await Index(cost.UserGroupId);
             }
-            ViewData["UserGroupId"] = new SelectList(_context.UserGroups, "UserGroupId", "UserGroupId", cost.UserGroupId);
-            return View(cost);
+            return NotFound();
         }
 
         // GET: Costs/Edit/5
